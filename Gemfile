@@ -45,3 +45,9 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
+
+gem 'devise', '~> 4.9'
+gem 'devise_token_auth', '~> 1.2'
+gem 'rack-cors', '~> 2.0'
+
+gem 'omniauth', '~> 2.1'
