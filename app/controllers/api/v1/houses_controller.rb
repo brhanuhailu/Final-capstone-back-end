@@ -1,13 +1,13 @@
 class Api::V1::HousesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_houses, only: [:index, :destroy]
+  before_action :set_houses, only: %i[index destroy]
   def index
-    user = current_user
+    current_user
     render json: @houses
   end
 
   def new
-    user = current_user
+    current_user
     @house = House.new
     render json: @house
   end
@@ -16,21 +16,26 @@ class Api::V1::HousesController < ApplicationController
     user = current_user
     @house = user.houses.build(house_params)
     if @house.save
-      render json: @house , status: :created
+      render json: @house, status: :created
     else
       render json: { errors: @house.errors.full_messages }, status: :unprocessable_entity
     end
-
   end
 
   def show
     @house = House.find(params[:id])
     render json: @house
-
   end
 
   def destroy
-    
+    user = current_user
+    @house = House.find(params[:id])
+    if user.id == @house.user_id
+      @house.destroy
+      render json: @houses
+    else
+      render json: { error: 'you are not allowed to delete' }, status: :unprocessable_entity
+    end
   end
 
   private
