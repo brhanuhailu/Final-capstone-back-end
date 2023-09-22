@@ -7,12 +7,19 @@ class Api::V1::HousesController < ApplicationController
   end
 
   def new
-    
-
+    user = current_user
+    @house = House.new
+    render json: @house
   end
 
   def create
-
+    user = current_user
+    @house = user.houses.build(house_params)
+    if @house.save
+      render json: @house , status: :created
+    else
+      render json: { errors: @house.errors.full_messages }, status: :unprocessable_entity
+    end
 
   end
 
