@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe House, type: :model do
-  let(:user) do 
+  let(:user) do
     User.new(
-      "username": "test user" ,
-      "email": "test@email.com",
-      "password": "12345678" ,
-      "password_confirmation": "12345678"
+      username: 'test user',
+      email: 'test@email.com',
+      password: '12345678',
+      password_confirmation: '12345678'
     )
   end
 
   let(:valid_house) do
     House.new(
-      user: user,
+      user:,
       name: 'Example House',
       area: 100,
       number_of_rooms: 3,
@@ -55,4 +55,3 @@ RSpec.describe House, type: :model do
     expect(association.macro).to eq :has_many
   end
 end
-
