@@ -42,9 +42,8 @@ class Api::V1::ReservationsController < ApplicationController
     params.require(:reservation).permit(:booking_date, :checkout_date)
   end
 
-  def total_charge(price,start_date,end_date)
+  def total_charge(price, start_date, end_date)
     difference = end_date - start_date
-    total = difference * price
-    total
+    difference * price
   end
 end
