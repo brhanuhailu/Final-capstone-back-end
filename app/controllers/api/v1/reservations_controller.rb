@@ -1,6 +1,6 @@
 class Api::V1::ReservationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :get_user
+  before_action :user
 
   def index
     @reservations = @user.reservations.all
@@ -20,21 +20,19 @@ class Api::V1::ReservationsController < ApplicationController
   end
 
   def destroy
-
     @reservation = Reservation.find(params[:id])
-    if @user.id = @reservation.user_id
+    if @user.id == @reservation.user_id
       @reservation.destroy
       @reservations = @user.reservations.all
       render json: @reservations, status: :created
     else
       render json: { error: 'you are not allowed to delete' }, status: :unprocessable_entity
-    end 
-
+    end
   end
 
   private
 
-  def get_user
+  def user
     @user = current_user
   end
 
