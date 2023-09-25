@@ -1,5 +1,3 @@
-# spec/models/reservation_spec.rb
-
 require 'rails_helper'
 
 RSpec.describe Reservation, type: :model do
