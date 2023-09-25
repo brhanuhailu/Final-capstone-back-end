@@ -19,6 +19,19 @@ class Api::V1::ReservationsController < ApplicationController
     end
   end
 
+  def destroy
+
+    @reservation = Reservation.find(params[:id])
+    if @user.id = @reservation.user_id
+      @reservation.destroy
+      @reservations = @user.reservations.all
+      render json: @reservations, status: :created
+    else
+      render json: { error: 'you are not allowed to delete' }, status: :unprocessable_entity
+    end 
+
+  end
+
   private
 
   def get_user
