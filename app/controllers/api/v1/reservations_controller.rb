@@ -7,6 +7,18 @@ class Api::V1::ReservationsController < ApplicationController
     render json: @reservations
   end
 
+  def create
+    @house = House.find(params[:house_id])
+    @reservation = @house.reservations.build(reserv_params)
+    @reservation.user_id = @user.id
+    if @reservation.save
+      @reservations = @user.reservations.all
+      render json: @reservations, status: :created
+    else
+      render json: { errors: @reservation.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def get_user
