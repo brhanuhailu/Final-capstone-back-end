@@ -55,4 +55,4 @@ gem 'rswag'
 
 gem 'omniauth', '~> 2.1'
 
-gem "sprockets"
+gem 'sprockets'
