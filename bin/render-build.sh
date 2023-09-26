@@ -2,5 +2,5 @@
 # exit on error
 set -o errexit
 
-bundle install
+bundle installs
 bundle exec rake db:migrate
