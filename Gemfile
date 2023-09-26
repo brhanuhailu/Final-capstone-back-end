@@ -53,4 +53,4 @@ gem 'rack-cors', '~> 2.0'
 
 gem 'omniauth', '~> 2.1'
 
-gem "sprockets", "~> 4.2"
+gem "sprockets"

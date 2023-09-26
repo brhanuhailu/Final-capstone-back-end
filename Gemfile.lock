@@ -228,7 +228,7 @@ DEPENDENCIES
   rack-cors (~> 2.0)
   rails (~> 7.0.8)
   rspec-rails
-  sprockets (~> 4.2)
+  sprockets
   tzinfo-data
 
 RUBY VERSION
