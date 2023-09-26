@@ -5,42 +5,40 @@ info:
   version: v1
 paths:
   "/api/v1/houses":
+    parameters:
+    - name: access-token
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: client
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: uid
+      in: header
+      required: true
+      schema:
+        type: string
     get:
       summary: list houses
-      parameters:
-      - name: access-token
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: client
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: uid
-        in: header
-        required: true
-        schema:
-          type: string
       responses:
         '200':
           description: successful
           content:
             application/json:
-              examples:
-                Example 1:
-                  value:
-                  - id: 7
-                    user_id: 18
-                    name: House1
-                    area: 100
-                    number_of_rooms: 3
-                    description: beautiful house
-                    location: Niger
-                    created_at: '2023-09-25T18:45:02.994Z'
-                    updated_at: '2023-09-25T18:45:02.994Z'
-                    price: '25.0'
+              example:
+              - id: 193
+                user_id: 251
+                name: House1
+                area: 100
+                number_of_rooms: 3
+                description: beautiful house
+                location: Niger
+                created_at: '2023-09-26T15:09:43.739Z'
+                updated_at: '2023-09-26T15:09:43.739Z'
+                price: '25.0'
               schema:
                 type: array
                 items:
@@ -70,11 +68,9 @@ paths:
           description: Unauthorized
           content:
             application/json:
-              examples:
-                Example 1:
-                  value:
-                    errors:
-                    - You need to sign in or sign up before continuing.
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
               schema:
                 type: object
                 properties:
@@ -82,6 +78,255 @@ paths:
                     type: array
                     items:
                       type: string
+    post:
+      summary: create house
+      parameters: []
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: 196
+                user_id: 253
+                name: House2
+                area: 4
+                number_of_rooms: 4
+                description: Nice house
+                location: Nowhere
+                created_at: '2023-09-26T15:09:43.849Z'
+                updated_at: '2023-09-26T15:09:43.849Z'
+                price: '200.0'
+        '422':
+          description: Unprocessable entity(when a required parameter is missing)
+          content:
+            application/json:
+              example:
+                errors:
+                - Area can't be blank
+                - Location can't be blank
+                - Name can't be blank
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                area:
+                  type: number
+                price:
+                  type: number
+                description:
+                  type: string
+                number_of_rooms:
+                  type: number
+                location:
+                  type: string
+  "/api/v1/houses/{id}":
+    get:
+      summary: show house
+      parameters:
+      - name: access-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: client
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: uid
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: 198
+                user_id: 255
+                name: House1
+                area: 100
+                number_of_rooms: 3
+                description: beautiful house
+                location: Niger
+                created_at: '2023-09-26T15:09:43.887Z'
+                updated_at: '2023-09-26T15:09:43.887Z'
+                price: '25.0'
+    delete:
+      summary: delete house
+      parameters:
+      - name: access-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: client
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: uid
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example: []
+  "/api/v1/houses/{house_id}/reservations":
+    parameters:
+    - name: house_id
+      in: path
+      description: house_id
+      required: true
+      schema:
+        type: string
+    - name: access-token
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: client
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: uid
+      in: header
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list reservations
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+              - id: 85
+                user_id: 258
+                house_id: 200
+                booking_date: '2023-09-26'
+                checkout_date: '2024-09-26'
+                total_charge: '40.0'
+                created_at: '2023-09-26T15:09:43.957Z'
+                updated_at: '2023-09-26T15:09:43.957Z'
+        '401':
+          description: Unauthorized (Not providing correct header)
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+    post:
+      summary: create reservation
+      parameters: []
+      responses:
+        '201':
+          description: reservation created successful
+          content:
+            application/json:
+              example:
+              - id: 87
+                user_id: 262
+                house_id: 202
+                booking_date: '2023-09-26'
+                checkout_date: '2024-09-26'
+                total_charge: '40.0'
+                created_at: '2023-09-26T15:09:44.016Z'
+                updated_at: '2023-09-26T15:09:44.016Z'
+              - id: 88
+                user_id: 262
+                house_id: 202
+                booking_date: '2023-09-26'
+                checkout_date: '2024-09-26'
+                total_charge: '9150.0'
+                created_at: '2023-09-26T15:09:44.028Z'
+                updated_at: '2023-09-26T15:09:44.028Z'
+        '401':
+          description: You should provide required parameters)
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                booking_date:
+                  type: string
+                checkout_date:
+                  type: number
+  "/api/v1/houses/{house_id}/reservations/{id}":
+    parameters:
+    - name: house_id
+      in: path
+      description: house_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    - name: access-token
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: client
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: uid
+      in: header
+      required: true
+      schema:
+        type: string
+    delete:
+      summary: delete reservation
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              example: []
 servers:
 - url: https://{defaultHost}
   variables:
