@@ -196,9 +196,6 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
-    sprockets (4.2.1)
-      concurrent-ruby (~> 1.0)
-      rack (>= 2.2.4, < 4)
     stringio (3.0.8)
     thor (1.2.2)
     timeout (0.4.0)
@@ -228,7 +225,6 @@ DEPENDENCIES
   rack-cors (~> 2.0)
   rails (~> 7.0.8)
   rspec-rails
-  sprockets
   tzinfo-data
 
 RUBY VERSION
