@@ -29,6 +29,14 @@ RSpec.describe 'api/v1/houses', type: :request do
         let(:'access-token') { @auth_headers['access-token'] }
         let(:client) { @auth_headers['client'] }
         let(:uid) { @auth_headers['uid'] }
+        header 'access-token', schema: { type: :string, nullable: false },
+                               description: "This serves as the user's password for each request. A hashed version of this value is stored in the database for later comparison. This value should be changed on each request."
+        header 'client', schema: { type: :string, nullable: false },
+                         description: 'This enables the use of multiple simultaneous sessions on different clients. (For example, a user may want to be authenticated on both their phone and their laptop at the same time.)'
+        header 'expiry', schema: { type: :string, nullable: false },
+                         description: 'The date at which the current session will expire. This can be used by clients to invalidate expired tokens without the need for an API request.'
+        header 'uid', schema: { type: :string, nullable: false },
+                      description: 'A unique value that is used to identify the user. This is necessary because searching the DB for users by their access token will make the API susceptible to timing attacks.'
 
         schema type: :array,
                items: {
@@ -114,6 +122,15 @@ RSpec.describe 'api/v1/houses', type: :request do
           }
         end
 
+        header 'access-token', schema: { type: :string, nullable: false },
+                               description: "This serves as the user's password for each request. A hashed version of this value is stored in the database for later comparison. This value should be changed on each request."
+        header 'client', schema: { type: :string, nullable: false },
+                         description: 'This enables the use of multiple simultaneous sessions on different clients. (For example, a user may want to be authenticated on both their phone and their laptop at the same time.)'
+        header 'expiry', schema: { type: :string, nullable: false },
+                         description: 'The date at which the current session will expire. This can be used by clients to invalidate expired tokens without the need for an API request.'
+        header 'uid', schema: { type: :string, nullable: false },
+                      description: 'A unique value that is used to identify the user. This is necessary because searching the DB for users by their access token will make the API susceptible to timing attacks.'
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -172,6 +189,15 @@ RSpec.describe 'api/v1/houses', type: :request do
         let(:uid) { @auth_headers['uid'] }
         let(:id) { @house.id }
 
+        header 'access-token', schema: { type: :string, nullable: false },
+                               description: "This serves as the user's password for each request. A hashed version of this value is stored in the database for later comparison. This value should be changed on each request."
+        header 'client', schema: { type: :string, nullable: false },
+                         description: 'This enables the use of multiple simultaneous sessions on different clients. (For example, a user may want to be authenticated on both their phone and their laptop at the same time.)'
+        header 'expiry', schema: { type: :string, nullable: false },
+                         description: 'The date at which the current session will expire. This can be used by clients to invalidate expired tokens without the need for an API request.'
+        header 'uid', schema: { type: :string, nullable: false },
+                      description: 'A unique value that is used to identify the user. This is necessary because searching the DB for users by their access token will make the API susceptible to timing attacks.'
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -194,6 +220,15 @@ RSpec.describe 'api/v1/houses', type: :request do
         let(:client) { @auth_headers['client'] }
         let(:uid) { @auth_headers['uid'] }
         let(:id) { @house.id }
+
+        header 'access-token', schema: { type: :string, nullable: false },
+                               description: "This serves as the user's password for each request. A hashed version of this value is stored in the database for later comparison. This value should be changed on each request."
+        header 'client', schema: { type: :string, nullable: false },
+                         description: 'This enables the use of multiple simultaneous sessions on different clients. (For example, a user may want to be authenticated on both their phone and their laptop at the same time.)'
+        header 'expiry', schema: { type: :string, nullable: false },
+                         description: 'The date at which the current session will expire. This can be used by clients to invalidate expired tokens without the need for an API request.'
+        header 'uid', schema: { type: :string, nullable: false },
+                      description: 'A unique value that is used to identify the user. This is necessary because searching the DB for users by their access token will make the API susceptible to timing attacks.'
 
         after do |example|
           example.metadata[:response][:content] = {
