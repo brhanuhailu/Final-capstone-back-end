@@ -1,0 +1,89 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/houses":
+    get:
+      summary: list houses
+      parameters:
+      - name: access-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: client
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: uid
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                Example 1:
+                  value:
+                  - id: 7
+                    user_id: 18
+                    name: House1
+                    area: 100
+                    number_of_rooms: 3
+                    description: beautiful house
+                    location: Niger
+                    created_at: '2023-09-25T18:45:02.994Z'
+                    updated_at: '2023-09-25T18:45:02.994Z'
+                    price: '25.0'
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    location:
+                      type: string
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                    area:
+                      type: integer
+                    number_of_rooms:
+                      type: integer
+                    price:
+                      type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              examples:
+                Example 1:
+                  value:
+                    errors:
+                    - You need to sign in or sign up before continuing.
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
