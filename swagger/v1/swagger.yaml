@@ -1,0 +1,709 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/houses":
+    parameters:
+    - name: access-token
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: client
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: uid
+      in: header
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list houses
+      responses:
+        '200':
+          description: successful
+          headers:
+            access-token:
+              schema:
+                type: string
+                nullable: false
+              description: This serves as the user's password for each request. A
+                hashed version of this value is stored in the database for later comparison.
+                This value should be changed on each request.
+            client:
+              schema:
+                type: string
+                nullable: false
+              description: This enables the use of multiple simultaneous sessions
+                on different clients. (For example, a user may want to be authenticated
+                on both their phone and their laptop at the same time.)
+            expiry:
+              schema:
+                type: string
+                nullable: false
+              description: The date at which the current session will expire. This
+                can be used by clients to invalidate expired tokens without the need
+                for an API request.
+            uid:
+              schema:
+                type: string
+                nullable: false
+              description: A unique value that is used to identify the user. This
+                is necessary because searching the DB for users by their access token
+                will make the API susceptible to timing attacks.
+          content:
+            application/json:
+              example:
+              - id: 433
+                user_id: 535
+                name: House1
+                area: 100
+                number_of_rooms: 3
+                description: beautiful house
+                location: Niger
+                created_at: '2023-09-26T18:13:48.734Z'
+                updated_at: '2023-09-26T18:13:48.734Z'
+                price: '25.0'
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    location:
+                      type: string
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                    area:
+                      type: integer
+                    number_of_rooms:
+                      type: integer
+                    price:
+                      type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+    post:
+      summary: create house
+      parameters: []
+      responses:
+        '201':
+          description: successful
+          headers:
+            access-token:
+              schema:
+                type: string
+                nullable: false
+              description: This serves as the user's password for each request. A
+                hashed version of this value is stored in the database for later comparison.
+                This value should be changed on each request.
+            client:
+              schema:
+                type: string
+                nullable: false
+              description: This enables the use of multiple simultaneous sessions
+                on different clients. (For example, a user may want to be authenticated
+                on both their phone and their laptop at the same time.)
+            expiry:
+              schema:
+                type: string
+                nullable: false
+              description: The date at which the current session will expire. This
+                can be used by clients to invalidate expired tokens without the need
+                for an API request.
+            uid:
+              schema:
+                type: string
+                nullable: false
+              description: A unique value that is used to identify the user. This
+                is necessary because searching the DB for users by their access token
+                will make the API susceptible to timing attacks.
+          content:
+            application/json:
+              example:
+                id: 436
+                user_id: 537
+                name: House2
+                area: 4
+                number_of_rooms: 4
+                description: Nice house
+                location: Nowhere
+                created_at: '2023-09-26T18:13:48.869Z'
+                updated_at: '2023-09-26T18:13:48.869Z'
+                price: '200.0'
+        '422':
+          description: Unprocessable entity(when a required parameter is missing)
+          content:
+            application/json:
+              example:
+                errors:
+                - Area can't be blank
+                - Location can't be blank
+                - Name can't be blank
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                area:
+                  type: number
+                price:
+                  type: number
+                description:
+                  type: string
+                number_of_rooms:
+                  type: number
+                location:
+                  type: string
+  "/api/v1/houses/{id}":
+    get:
+      summary: show house
+      parameters:
+      - name: access-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: client
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: uid
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: successful
+          headers:
+            access-token:
+              schema:
+                type: string
+                nullable: false
+              description: This serves as the user's password for each request. A
+                hashed version of this value is stored in the database for later comparison.
+                This value should be changed on each request.
+            client:
+              schema:
+                type: string
+                nullable: false
+              description: This enables the use of multiple simultaneous sessions
+                on different clients. (For example, a user may want to be authenticated
+                on both their phone and their laptop at the same time.)
+            expiry:
+              schema:
+                type: string
+                nullable: false
+              description: The date at which the current session will expire. This
+                can be used by clients to invalidate expired tokens without the need
+                for an API request.
+            uid:
+              schema:
+                type: string
+                nullable: false
+              description: A unique value that is used to identify the user. This
+                is necessary because searching the DB for users by their access token
+                will make the API susceptible to timing attacks.
+          content:
+            application/json:
+              example:
+                id: 438
+                user_id: 539
+                name: House1
+                area: 100
+                number_of_rooms: 3
+                description: beautiful house
+                location: Niger
+                created_at: '2023-09-26T18:13:48.911Z'
+                updated_at: '2023-09-26T18:13:48.911Z'
+                price: '25.0'
+    delete:
+      summary: delete house
+      parameters:
+      - name: access-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: client
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: uid
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: successful
+          headers:
+            access-token:
+              schema:
+                type: string
+                nullable: false
+              description: This serves as the user's password for each request. A
+                hashed version of this value is stored in the database for later comparison.
+                This value should be changed on each request.
+            client:
+              schema:
+                type: string
+                nullable: false
+              description: This enables the use of multiple simultaneous sessions
+                on different clients. (For example, a user may want to be authenticated
+                on both their phone and their laptop at the same time.)
+            expiry:
+              schema:
+                type: string
+                nullable: false
+              description: The date at which the current session will expire. This
+                can be used by clients to invalidate expired tokens without the need
+                for an API request.
+            uid:
+              schema:
+                type: string
+                nullable: false
+              description: A unique value that is used to identify the user. This
+                is necessary because searching the DB for users by their access token
+                will make the API susceptible to timing attacks.
+          content:
+            application/json:
+              example: []
+  "/api/v1/houses/{house_id}/reservations":
+    parameters:
+    - name: house_id
+      in: path
+      description: house_id
+      required: true
+      schema:
+        type: string
+    - name: access-token
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: client
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: uid
+      in: header
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list reservations
+      responses:
+        '200':
+          description: successful
+          headers:
+            access-token:
+              schema:
+                type: string
+                nullable: false
+              description: This serves as the user's password for each request. A
+                hashed version of this value is stored in the database for later comparison.
+                This value should be changed on each request.
+            client:
+              schema:
+                type: string
+                nullable: false
+              description: This enables the use of multiple simultaneous sessions
+                on different clients. (For example, a user may want to be authenticated
+                on both their phone and their laptop at the same time.)
+            expiry:
+              schema:
+                type: string
+                nullable: false
+              description: The date at which the current session will expire. This
+                can be used by clients to invalidate expired tokens without the need
+                for an API request.
+            uid:
+              schema:
+                type: string
+                nullable: false
+              description: A unique value that is used to identify the user. This
+                is necessary because searching the DB for users by their access token
+                will make the API susceptible to timing attacks.
+          content:
+            application/json:
+              example:
+              - id: 151
+                user_id: 542
+                house_id: 440
+                booking_date: '2023-09-26'
+                checkout_date: '2024-09-26'
+                total_charge: '40.0'
+                created_at: '2023-09-26T18:13:48.992Z'
+                updated_at: '2023-09-26T18:13:48.992Z'
+        '401':
+          description: Unauthorized (Not providing correct header)
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+    post:
+      summary: create reservation
+      parameters: []
+      responses:
+        '201':
+          description: reservation created successful
+          headers:
+            access-token:
+              schema:
+                type: string
+                nullable: false
+              description: This serves as the user's password for each request. A
+                hashed version of this value is stored in the database for later comparison.
+                This value should be changed on each request.
+            client:
+              schema:
+                type: string
+                nullable: false
+              description: This enables the use of multiple simultaneous sessions
+                on different clients. (For example, a user may want to be authenticated
+                on both their phone and their laptop at the same time.)
+            expiry:
+              schema:
+                type: string
+                nullable: false
+              description: The date at which the current session will expire. This
+                can be used by clients to invalidate expired tokens without the need
+                for an API request.
+            uid:
+              schema:
+                type: string
+                nullable: false
+              description: A unique value that is used to identify the user. This
+                is necessary because searching the DB for users by their access token
+                will make the API susceptible to timing attacks.
+          content:
+            application/json:
+              example:
+              - id: 153
+                user_id: 546
+                house_id: 442
+                booking_date: '2023-09-26'
+                checkout_date: '2024-09-26'
+                total_charge: '40.0'
+                created_at: '2023-09-26T18:13:49.056Z'
+                updated_at: '2023-09-26T18:13:49.056Z'
+              - id: 154
+                user_id: 546
+                house_id: 442
+                booking_date: '2023-09-26'
+                checkout_date: '2024-09-26'
+                total_charge: '9150.0'
+                created_at: '2023-09-26T18:13:49.078Z'
+                updated_at: '2023-09-26T18:13:49.078Z'
+        '401':
+          description: You should provide required parameters)
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                booking_date:
+                  type: string
+                checkout_date:
+                  type: number
+  "/api/v1/houses/{house_id}/reservations/{id}":
+    parameters:
+    - name: house_id
+      in: path
+      description: house_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    - name: access-token
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: client
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: uid
+      in: header
+      required: true
+      schema:
+        type: string
+    delete:
+      summary: delete reservation
+      responses:
+        '201':
+          description: successful
+          headers:
+            access-token:
+              schema:
+                type: string
+                nullable: false
+              description: This serves as the user's password for each request. A
+                hashed version of this value is stored in the database for later comparison.
+                This value should be changed on each request.
+            client:
+              schema:
+                type: string
+                nullable: false
+              description: This enables the use of multiple simultaneous sessions
+                on different clients. (For example, a user may want to be authenticated
+                on both their phone and their laptop at the same time.)
+            expiry:
+              schema:
+                type: string
+                nullable: false
+              description: The date at which the current session will expire. This
+                can be used by clients to invalidate expired tokens without the need
+                for an API request.
+            uid:
+              schema:
+                type: string
+                nullable: false
+              description: A unique value that is used to identify the user. This
+                is necessary because searching the DB for users by their access token
+                will make the API susceptible to timing attacks.
+          content:
+            application/json:
+              example: []
+  "/auth/sign_in":
+    post:
+      summary: Log in
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          headers:
+            access-token:
+              schema:
+                type: string
+                nullable: false
+              description: This serves as the user's password for each request. A
+                hashed version of this value is stored in the database for later comparison.
+                This value should be changed on each request.
+            client:
+              schema:
+                type: string
+                nullable: false
+              description: This enables the use of multiple simultaneous sessions
+                on different clients. (For example, a user may want to be authenticated
+                on both their phone and their laptop at the same time.)
+            expiry:
+              schema:
+                type: string
+                nullable: false
+              description: The date at which the current session will expire. This
+                can be used by clients to invalidate expired tokens without the need
+                for an API request.
+            uid:
+              schema:
+                type: string
+                nullable: false
+              description: A unique value that is used to identify the user. This
+                is necessary because searching the DB for users by their access token
+                will make the API susceptible to timing attacks.
+          content:
+            application/json:
+              example:
+                data:
+                  email: yash@email.com
+                  provider: email
+                  uid: yash@email.com
+                  id: 551
+                  allow_password_change: false
+                  username: Yashodhi
+        '401':
+          description: incorrect password
+          content:
+            application/json:
+              example:
+                success: false
+                errors:
+                - Invalid login credentials. Please try again.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+  "/auth/sign_up":
+    post:
+      summary: Create acount
+      parameters: []
+      responses:
+        '307':
+          description: successful
+          content:
+            application/json:
+              example: <html><body>You are being <a href="http://www.example.com/omniauth/sign_up?%7B%22email%22%3A%22nour%40email.com%22%2C%22username%22%3A%22Nouridine%22%2C%22password%22%3A%22abcdef%22%2C%22password_confirmation%22%3A%22abcdef%22%7D=&amp;resource_class=User">redirected</a>.</body></html>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                username:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+  "/auth/validate_token":
+    parameters:
+    - name: access-token
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: client
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: uid
+      in: header
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get the current use
+      responses:
+        '200':
+          description: successful get the user
+          headers:
+            access-token:
+              schema:
+                type: string
+                nullable: false
+              description: This serves as the user's password for each request. A
+                hashed version of this value is stored in the database for later comparison.
+                This value should be changed on each request.
+            client:
+              schema:
+                type: string
+                nullable: false
+              description: This enables the use of multiple simultaneous sessions
+                on different clients. (For example, a user may want to be authenticated
+                on both their phone and their laptop at the same time.)
+            expiry:
+              schema:
+                type: string
+                nullable: false
+              description: The date at which the current session will expire. This
+                can be used by clients to invalidate expired tokens without the need
+                for an API request.
+            uid:
+              schema:
+                type: string
+                nullable: false
+              description: A unique value that is used to identify the user. This
+                is necessary because searching the DB for users by their access token
+                will make the API susceptible to timing attacks.
+          content:
+            application/json:
+              example: '{"success":true,"data":{"id":554,"provider":"email","uid":"yash@email.com","allow_password_change":false,"username":"Yashodhi","email":"yash@email.com"}}'
+        '401':
+          description: Un authorized when the correct headers are not provided
+          content:
+            application/json:
+              example: '{"success":false,"errors":["Invalid login credentials"]}'
+  "/auth/sign_out":
+    parameters:
+    - name: access-token
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: client
+      in: header
+      required: true
+      schema:
+        type: string
+    - name: uid
+      in: header
+      required: true
+      schema:
+        type: string
+    delete:
+      summary: Disconnect the user
+      responses:
+        '200':
+          description: User successfully disconnected
+          content:
+            application/json:
+              example: '{"success":true}'
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
