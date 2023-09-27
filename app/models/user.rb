@@ -5,5 +5,5 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
   has_many :houses
   has_many :reservations
-  validates :username, presence: true
+  validates :username, :email, presence: true
 end
