@@ -17,7 +17,8 @@ RSpec.describe House, type: :model do
       area: 100,
       number_of_rooms: 3,
       location: 'Sample Location',
-      price: '200.67'
+      price: '200.67',
+      image: 'https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?size=626&ext=jpg'
     )
   end
 

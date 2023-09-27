@@ -11,7 +11,7 @@ RSpec.describe 'auth/authentication', type: :request do
         password_confirmation: 'abcdef'
       )
       @house = @user.houses.create(name: 'House1', description: 'beautiful house', area: 100, number_of_rooms: 3,
-                                   location: 'Niger', price: 25)
+                                   location: 'Niger', price: 25, image: 'https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?size=626&ext=jpg')
     end
     @auth_headers = @user.create_new_auth_token if @user
   end

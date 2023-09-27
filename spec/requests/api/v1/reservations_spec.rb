@@ -17,7 +17,7 @@ RSpec.describe 'api/v1/reservations', type: :request do
                                   }
                                 ])
     @house = @user.houses.create(name: 'House1', description: 'beautiful house', area: 100, number_of_rooms: 3,
-                                 location: 'Niger', price: 25)
+                                 location: 'Niger', price: 25, image: 'https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?size=626&ext=jpg')
     @reservation = @house.reservations.create(
       user: @user1,
       booking_date: '2023-09-26T14:41:07.381Z',

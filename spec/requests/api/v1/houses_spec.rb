@@ -11,7 +11,7 @@ RSpec.describe 'api/v1/houses', type: :request do
         password_confirmation: 'abcdef'
       )
       @house = @user.houses.create(name: 'House1', description: 'beautiful house', area: 100, number_of_rooms: 3,
-                                   location: 'Niger', price: 25)
+                                   location: 'Niger', price: 25, image: 'https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?size=626&ext=jpg')
     end
 
     @auth_headers = @user.create_new_auth_token if @user
@@ -51,7 +51,8 @@ RSpec.describe 'api/v1/houses', type: :request do
                    updated_at: { type: :string },
                    area: { type: :integer },
                    number_of_rooms: { type: :integer },
-                   price: { type: :string }
+                   price: { type: :string },
+                   image: { type: :string }
                  }
                }
 
@@ -91,9 +92,6 @@ RSpec.describe 'api/v1/houses', type: :request do
     post('create house') do
       produces 'application/json'
       consumes 'application/json'
-      # parameter name: 'access-token', in: :header, type: :string, required: true
-      # parameter name: 'client', in: :header, type: :string, required: true
-      # parameter name: 'uid', in: :header, type: :string, required: true
 
       parameter name: :house, in: :body, schema: {
         type: :object,
@@ -103,7 +101,8 @@ RSpec.describe 'api/v1/houses', type: :request do
           price: { type: :number },
           description: { type: :string },
           number_of_rooms: { type: :number },
-          location: { type: :string }
+          location: { type: :string },
+          image: { type: :string }
         }
       }
 
@@ -118,7 +117,8 @@ RSpec.describe 'api/v1/houses', type: :request do
             price: 200,
             description: 'Nice house',
             number_of_rooms: 4,
-            location: 'Nowhere'
+            location: 'Nowhere',
+            image: 'https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?size=626&ext=jpg'
           }
         end
 
