@@ -11,7 +11,7 @@ class Api::V1::ReservationsController < ApplicationController
     @house = House.find(params[:house_id])
     @reservation = @house.reservations.build(reserv_params)
     @reservation.total_charge = total_charge(@house.price, @reservation.booking_date, @reservation.checkout_date)
-    puts @reservation.total_charge
+    # puts @reservation.total_charge
     @reservation.user_id = @user.id
     if @reservation.save
       @reservations = @user.reservations.all
@@ -43,7 +43,7 @@ class Api::V1::ReservationsController < ApplicationController
   end
 
   def total_charge(price, start_date, end_date)
-    difference = end_date - start_date
+    difference = (end_date - start_date).to_i
     difference * price
   end
 end
