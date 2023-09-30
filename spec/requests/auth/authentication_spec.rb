@@ -75,7 +75,7 @@ RSpec.describe 'auth/authentication', type: :request do
     end
   end
 
-  path '/auth/sign_up' do
+  path '/auth' do
     post('Create acount') do
       produces 'application/json'
       consumes 'application/json'
