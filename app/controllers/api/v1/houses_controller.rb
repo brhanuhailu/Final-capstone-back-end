@@ -6,6 +6,12 @@ class Api::V1::HousesController < ApplicationController
     render json: @houses
   end
 
+  def userhouses
+    user = current_user
+    @userhouses = user.houses.all
+    render json: @userhouses
+  end
+
   def create
     user = current_user
     @house = user.houses.build(house_params)
