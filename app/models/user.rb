@@ -3,7 +3,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
   include DeviseTokenAuth::Concerns::User
-  has_many :houses
-  has_many :reservations
+  has_many :houses, dependent: :destroy
+  has_many :reservations, dependent: :destroy
   validates :username, :email, presence: true
 end
