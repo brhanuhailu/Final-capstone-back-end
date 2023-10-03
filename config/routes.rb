@@ -10,7 +10,8 @@ Rails.application.routes.draw do
           get 'userhouses'
         end
         resources :reservations , only: [:index, :create, :destroy]
-      end 
+      end
+      get 'myreservations', to: 'reservations#my_reservations'
     end
   end
 end

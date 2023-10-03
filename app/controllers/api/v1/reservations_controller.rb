@@ -32,6 +32,11 @@ class Api::V1::ReservationsController < ApplicationController
     end
   end
 
+  def my_reservations
+    reservations = current_user.reservations.includes(:house)
+    render json: reservations
+  end
+
   private
 
   def user
