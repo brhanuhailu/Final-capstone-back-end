@@ -33,7 +33,7 @@ class Api::V1::ReservationsController < ApplicationController
   end
 
   def my_reservations
-    reservations = current_user.reservations.includes(:house)
+    reservations = Reservation.includes(:house).where(user_id: current_user.id)
     render json: reservations
   end
 
