@@ -2,13 +2,11 @@ class Api::V1::HousesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_houses, only: %i[index destroy]
   def index
-    current_user
     render json: @houses
   end
 
   def userhouses
-    user = current_user
-    @userhouses = user.houses.all
+    @userhouses = current_user.houses.all
     render json: @userhouses
   end
 
@@ -25,6 +23,8 @@ class Api::V1::HousesController < ApplicationController
   def show
     @house = House.find(params[:id])
     render json: @house
+  rescue ActiveRecord::RecordNotFound
+    render json: { errors: 'House not found' }, status: :not_found
   end
 
   def destroy
