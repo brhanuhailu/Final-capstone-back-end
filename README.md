@@ -31,11 +31,17 @@
 
 > This is a ruby api only app which will serve as the back end app for our RentHub front end app.This app can use to reserve houses and view houses.Also a user can add his own house and rent.
 
-#App Api documentation link
+# App Api documentation link
 <https://house-rental-8mh7.onrender.com/api-docs/index.html>
 
 # Front end app demo link
 <https://final-capstone-n7jz.onrender.com/>
+
+# Kanbon board link
+https://github.com/users/yashodhicy/projects/6/views/1
+
+![image](https://github.com/yashodhicy/Final-capstone-back-end/assets/116276432/bcb9ef1c-a30e-486a-9471-a20d151004e2)
+
 
 ## The learning objective of this project are
 
