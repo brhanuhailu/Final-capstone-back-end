@@ -40,6 +40,7 @@
 # Kanbon board link
 https://github.com/users/yashodhicy/projects/6/views/1
 
+## Kanban board initial state
 ![image](https://github.com/yashodhicy/Final-capstone-back-end/assets/116276432/bcb9ef1c-a30e-486a-9471-a20d151004e2)
 
 
