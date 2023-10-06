@@ -37,11 +37,14 @@
 # Front end app demo link
 <https://final-capstone-n7jz.onrender.com/>
 
-# Kanbon board link
+# Kanbon board 
+## Kanbon board link
 https://github.com/users/yashodhicy/projects/6/views/1
 
-## Kanban board initial state
 ![image](https://github.com/yashodhicy/Final-capstone-back-end/assets/116276432/bcb9ef1c-a30e-486a-9471-a20d151004e2)
+
+There are three members of our team who are passionate about what they do. We worked smart to complete this project and worked together to solve problems and conflicts.We always communicated and shared work amongst ourselves in order to give our best effort. That distinguishes us as professionals.
+
 
 
 ## The learning objective of this project are
